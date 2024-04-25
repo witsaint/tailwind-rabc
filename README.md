@@ -28,6 +28,7 @@
          rabcCode: ["12", "13"], // 系统预设的 权限code, 可以是string[] 或者 Record<string, string[]>
          // rabcCode: { manager: ['12', '13'], admin: ['1', '12', '13']}
          mountSelector: "div", // 挂载的元素， 默认是 body， 这个是当前用户权限数据挂元素的css选择器
+         type: "data", // 挂载类型。默认 data,可以是class， 会体现在mountSelector
        }),
      ],
      theme: {},
