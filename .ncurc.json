@@ -1,0 +1,4 @@
+{
+  "dep": "prod,dev,bundle,peer,optional",
+  "reject": []
+}
