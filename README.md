@@ -63,6 +63,7 @@ const ref = useRef<HTMLDivElement>(null);
 // 这里元素需要和mountSelector 对应上
 const yourAccountAuth = ["12"];
 // const yourAccountAuth = { manager: ['12', '13']}; 如果只有一个role manager 可以跟一个空的[]
+// 表示当前挂载到这个元素的子元素控制权限为 role： manager， 以及权限code为12，13
 useEffect(() => {
   if (ref && ref.current) {
     mountRabc(yourAccountAuth, ref.current);
@@ -81,16 +82,16 @@ return <div ref={ref}></div>;
 角色
 
 ```tsx
-"role-yourRoleCode"; // 角色
+"role-yourRoleCode"; // 角色 eg：role-manager， 对应的权限code是["12", "13"]，在tailwind.config.js中配置的 rabcCode为 { manager: ['12', '13'], ...}
 ```
 
 权限
 
 ```tsx
-"auth-yourAuthCode"; // 权限
+"auth-yourAuthCode"; // 权限 eg：auth-12, duiying的权限code是12, 在tailwind.config.js中配置的 rabcCode为 ["12", "13"]，或者 { manager: ['12', ...], ...}
 ```
 
-命中权限后的样式
+命中权限后的样式,即当该元素拥有展示权限，则声明对应展示的样式
 
 ```tsx
 "auth-display";
