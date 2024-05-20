@@ -23,7 +23,7 @@ export const plugin = twPlugin.withOptions(function (options: Options) {
     'table-cell',
   ];
 
-  const addClassUtil = (utils, code, preKey = 'auth') => {
+  const addHiddenClass = (utils, code, preKey = 'auth') => {
     utils[`.${preKey}-${code}`] = {
       display: 'none',
     };
@@ -50,15 +50,10 @@ export const plugin = twPlugin.withOptions(function (options: Options) {
     });
   };
 
-  const forEachAuth = (
-    auths,
-    preKey,
-    type?: string,
-    mountSelector?: string
-  ) => {
+  const forEachAuth = (auths, preKey, type: string, mountSelector: string) => {
     const utils = {};
     auths.forEach((code) => {
-      addClassUtil(utils, code, preKey);
+      addHiddenClass(utils, code, preKey);
     });
     auths.forEach((code) => {
       addClassUtilAct(utils, code, preKey, type, mountSelector);
@@ -81,15 +76,19 @@ export const plugin = twPlugin.withOptions(function (options: Options) {
     if (rabcCode) {
       if (Array.isArray(rabcCode)) {
         const utils = forEachAuth(rabcCode, 'auth', type, mountSelector);
-        console.log(utils);
 
         addUtilities(utils, { respectPrefix: true });
       } else if (rabcCode !== null && typeof rabcCode === 'object') {
         let accountUtils = {};
         Object.keys(rabcCode).forEach((role) => {
-          const utils = forEachAuth(rabcCode[role], 'auth');
+          const utils = forEachAuth(
+            rabcCode[role],
+            'auth',
+            type,
+            mountSelector
+          );
           accountUtils = { ...accountUtils, ...utils };
-          addClassUtil(accountUtils, role, 'role');
+          addHiddenClass(accountUtils, role, 'role');
           addClassUtilAct(accountUtils, role, 'role', type, mountSelector);
         });
         addUtilities(accountUtils, { respectPrefix: true });
